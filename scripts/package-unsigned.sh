@@ -7,6 +7,8 @@ CONFIGURATION="Release"
 DERIVED_DATA_PATH="$ROOT_DIR/build/DerivedData"
 DIST_DIR="$ROOT_DIR/dist"
 ARCHIVE_NAME="$APP_NAME-unsigned.zip"
+DMG_NAME="$APP_NAME-unsigned.dmg"
+DMG_STAGING_DIR="$DIST_DIR/dmg-staging"
 
 cd "$ROOT_DIR"
 
@@ -37,7 +39,23 @@ if [[ ! -d "$APP_PATH" ]]; then
 fi
 
 COPYFILE_DISABLE=1 ditto -c -k --norsrc --keepParent "$APP_PATH" "$DIST_DIR/$ARCHIVE_NAME"
-shasum -a 256 "$DIST_DIR/$ARCHIVE_NAME" > "$DIST_DIR/$ARCHIVE_NAME.sha256"
+(cd "$DIST_DIR" && shasum -a 256 "$ARCHIVE_NAME" > "$ARCHIVE_NAME.sha256")
+
+mkdir -p "$DMG_STAGING_DIR"
+ditto "$APP_PATH" "$DMG_STAGING_DIR/$APP_NAME.app"
+ln -s /Applications "$DMG_STAGING_DIR/Applications"
+
+hdiutil create \
+  -volname "$APP_NAME" \
+  -srcfolder "$DMG_STAGING_DIR" \
+  -ov \
+  -format UDZO \
+  "$DIST_DIR/$DMG_NAME" >/dev/null
+
+(cd "$DIST_DIR" && shasum -a 256 "$DMG_NAME" > "$DMG_NAME.sha256")
+rm -rf "$DMG_STAGING_DIR"
 
 echo "Created $DIST_DIR/$ARCHIVE_NAME"
 echo "Created $DIST_DIR/$ARCHIVE_NAME.sha256"
+echo "Created $DIST_DIR/$DMG_NAME"
+echo "Created $DIST_DIR/$DMG_NAME.sha256"

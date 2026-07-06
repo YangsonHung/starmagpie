@@ -30,6 +30,8 @@ jobs:
         with:
           name: StarMagpie-unsigned
           path: |
+            dist/StarMagpie-unsigned.dmg
+            dist/StarMagpie-unsigned.dmg.sha256
             dist/StarMagpie-unsigned.zip
             dist/StarMagpie-unsigned.zip.sha256
 
@@ -38,9 +40,14 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
+            dist/StarMagpie-unsigned.dmg
+            dist/StarMagpie-unsigned.dmg.sha256
             dist/StarMagpie-unsigned.zip
             dist/StarMagpie-unsigned.zip.sha256
           body: |
-            This release contains a macOS build without Developer ID signing or Apple notarization because the project does not use an Apple Developer certificate yet.
+            This release contains unsigned macOS packages without Developer ID signing or Apple notarization because the project does not use an Apple Developer certificate yet.
+
+            Recommended download:
+            - StarMagpie-unsigned.dmg
 
             Xcode may still add an ad-hoc/linker signature to the executable. This is not a Developer ID signature, and macOS Gatekeeper will warn that the app is from an unidentified developer. You can also build from source with Xcode.

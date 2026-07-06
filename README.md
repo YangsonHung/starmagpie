@@ -73,7 +73,7 @@ brew install xcodegen
 
 ### Download a release
 
-Download `StarMagpie-unsigned.zip` from the GitHub Releases page once releases are published.
+Download `StarMagpie-unsigned.dmg` from the GitHub Releases page once releases are published. Open the DMG and drag `StarMagpie.app` to Applications.
 
 The project does not use an Apple Developer certificate yet, so release packages are not signed with Developer ID and are not notarized by Apple. macOS Gatekeeper will warn that the app is from an unidentified developer.
 
@@ -155,6 +155,8 @@ Build an unsigned release package:
 
 Local unsigned packages are written to:
 
+- `dist/StarMagpie-unsigned.dmg`
+- `dist/StarMagpie-unsigned.dmg.sha256`
 - `dist/StarMagpie-unsigned.zip`
 - `dist/StarMagpie-unsigned.zip.sha256`
 

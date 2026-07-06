@@ -73,7 +73,7 @@ brew install xcodegen
 
 ### 下载发布包
 
-发布后可在 GitHub Releases 页面下载 `StarMagpie-unsigned.zip`。
+发布后可在 GitHub Releases 页面下载 `StarMagpie-unsigned.dmg`。打开 DMG 后，把 `StarMagpie.app` 拖到 Applications 即可。
 
 项目当前没有 Apple Developer 证书，因此发布包默认不使用 Developer ID 签名，也不做 Apple 公证。macOS Gatekeeper 会提示应用来自未识别开发者。
 
@@ -155,6 +155,8 @@ xcodebuild build -scheme StarMagpie -destination 'platform=macOS'
 
 本地未签名发布包会输出到：
 
+- `dist/StarMagpie-unsigned.dmg`
+- `dist/StarMagpie-unsigned.dmg.sha256`
 - `dist/StarMagpie-unsigned.zip`
 - `dist/StarMagpie-unsigned.zip.sha256`
 
