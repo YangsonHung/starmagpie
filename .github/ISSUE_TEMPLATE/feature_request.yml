@@ -1,0 +1,38 @@
+name: Feature request
+description: Suggest an improvement for StarMagpie.
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user problem should this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What should StarMagpie do?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Area
+      options:
+        - GitHub sync
+        - Search and filtering
+        - Categories and notes
+        - Localization
+        - Security and token storage
+        - Build and release
+        - Documentation
+        - Other
+    validations:
+      required: true

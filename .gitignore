@@ -1,0 +1,16 @@
+.DS_Store
+DerivedData/
+build/
+dist/
+.build/
+*.xcresult
+*.xcuserdata
+xcuserdata/
+*.xcuserdatad/
+*.xcuserstate
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+.swiftpm/

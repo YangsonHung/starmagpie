@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussions
+    url: https://github.com/yangsonhung/starmagpie/discussions
+    about: Use discussions for open-ended ideas and general project conversation.

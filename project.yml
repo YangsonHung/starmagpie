@@ -1,0 +1,61 @@
+name: StarMagpie
+options:
+  bundleIdPrefix: com.yangsonhung
+  developmentLanguage: en
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+fileGroups:
+  - README.md
+  - README.zh-CN.md
+  - LICENSE
+  - CONTRIBUTING.md
+  - CODE_OF_CONDUCT.md
+  - SECURITY.md
+  - SUPPORT.md
+  - CHANGELOG.md
+  - AGENTS.md
+  - .github
+  - docs
+  - scripts
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    CODE_SIGNING_ALLOWED: "NO"
+targets:
+  StarMagpie:
+    type: application
+    platform: macOS
+    sources:
+      - path: StarMagpie
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.yangsonhung.StarMagpie
+        PRODUCT_NAME: StarMagpie
+        INFOPLIST_FILE: StarMagpie/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_PREVIEWS: "YES"
+    info:
+      path: StarMagpie/Info.plist
+      properties:
+        CFBundleDisplayName: StarMagpie
+        CFBundleName: StarMagpie
+        CFBundleIconName: AppIcon
+        CFBundleDevelopmentRegion: en
+        CFBundleShortVersionString: "0.1.0"
+        CFBundleVersion: "1"
+        LSMinimumSystemVersion: "14.0"
+        LSApplicationCategoryType: public.app-category.productivity
+        NSHumanReadableCopyright: Copyright © 2026
+  StarMagpieTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: StarMagpieTests
+    dependencies:
+      - target: StarMagpie
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.yangsonhung.StarMagpieTests
+        CODE_SIGNING_ALLOWED: "NO"
