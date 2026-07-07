@@ -4,6 +4,20 @@ This project keeps a user-facing changelog. After releases, append changes by ve
 
 ## Unreleased
 
+## v0.2.0 - 2026-07-07
+
+### Added
+
+- Repository README preview in the detail pane.
+- Larger README reading area with better media fitting in the detail pane.
+
+### Changed
+
+- Reduced in-app language switching work by localizing lightweight subviews instead of refreshing the whole window tree.
+- Improved Simplified Chinese localization coverage for app chrome, repository metadata, login, and language menu labels.
+
+## v0.1.0
+
 ### Added
 
 - Native macOS GitHub Stars manager.

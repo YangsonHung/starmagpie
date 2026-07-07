@@ -39,7 +39,7 @@ StarMagpie 会把你的 GitHub starred repositories 同步到本机，并让 Sta
 - 使用 SwiftData 进行本地持久化。
 - 支持按仓库名、完整名称、描述、Topics、语言和备注搜索。
 - 内置关键词分类，并支持手动分类覆盖。
-- 支持仓库备注、复制链接、打开 GitHub 和取消 Star。
+- 支持仓库 README 预览、备注、复制链接、打开 GitHub 和取消 Star。
 - 支持 JSON 导入导出，保留本地仓库数据、分类、备注和最后查看时间。
 - 支持英文和简体中文本地化，并提供 App 内语言切换。
 
@@ -93,8 +93,9 @@ open StarMagpie.xcodeproj
 1. 创建一个可以访问 starred repositories 的 GitHub Personal Access Token。
 2. 启动 StarMagpie，并使用 Token 登录。
 3. 点击 Sync 同步你的 GitHub Stars。
-4. 使用搜索、语言筛选、排序、分类和备注整理仓库。
-5. 使用 Data 菜单导入或导出 StarMagpie JSON 归档。
+4. 选择仓库后查看元数据、README、分类和备注。
+5. 使用搜索、语言筛选、排序、分类和备注整理仓库。
+6. 使用 Data 菜单导入或导出 StarMagpie JSON 归档。
 
 导入采用合并策略：GitHub repo `id` 相同的仓库会被更新，归档中没有出现的本地仓库会保留。
 
@@ -184,6 +185,7 @@ StarMagpie/
 │   ├── Models/                 # SwiftData 模型和筛选逻辑
 │   ├── Services/               # GitHub API、Keychain、归档和同步服务
 │   ├── Utilities/              # 本地化、文档和全局设置工具
+│   ├── ViewModels/             # 详情加载和展示状态
 │   ├── Views/                  # SwiftUI 视图
 │   ├── Assets.xcassets/        # App 图标和资源
 │   ├── en.lproj/               # 英文本地化

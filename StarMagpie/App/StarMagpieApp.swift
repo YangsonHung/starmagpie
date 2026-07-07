@@ -9,7 +9,6 @@ struct StarMagpieApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(appSettings)
-                .environment(\.locale, appSettings.locale)
         }
         .modelContainer(for: StarredRepo.self)
     }

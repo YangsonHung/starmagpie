@@ -9,12 +9,23 @@ enum SortOption: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 
     var title: String {
+        title(language: nil)
+    }
+
+    func title(language: AppLanguage?) -> String {
         switch self {
-        case .starsDesc: return AppLocalizer.text("Stars")
-        case .starredDesc: return AppLocalizer.text("Starred Date")
-        case .updatedDesc: return AppLocalizer.text("Updated Date")
-        case .nameAsc: return AppLocalizer.text("Name")
+        case .starsDesc: return localized("Stars", language: language)
+        case .starredDesc: return localized("Starred Date", language: language)
+        case .updatedDesc: return localized("Updated Date", language: language)
+        case .nameAsc: return localized("Name", language: language)
         }
+    }
+
+    private func localized(_ key: String, language: AppLanguage?) -> String {
+        if let language {
+            return AppLocalizer.text(key, language: language)
+        }
+        return AppLocalizer.text(key)
     }
 }
 

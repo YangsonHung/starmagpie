@@ -10,7 +10,7 @@ struct ContentView: View {
             if let repository {
                 SessionView(repository: repository)
             } else {
-                ProgressView("Starting...")
+                StartingView()
                     .task {
                         if repository == nil {
                             repository = StarRepository(modelContext: modelContext)
@@ -19,6 +19,14 @@ struct ContentView: View {
             }
         }
         .frame(minWidth: 1080, minHeight: 680)
+    }
+}
+
+private struct StartingView: View {
+    @EnvironmentObject private var appSettings: AppSettings
+
+    var body: some View {
+        ProgressView(AppLocalizer.text("Starting...", language: appSettings.language))
     }
 }
 

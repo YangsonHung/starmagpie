@@ -10,6 +10,8 @@
 "Connect GitHub" = "Connect GitHub";
 "Connecting..." = "Connecting...";
 "Copy Link" = "Copy Link";
+"Could not load README" = "Could not load README";
+"Created" = "Created";
 "Databases" = "Databases";
 "Data" = "Data";
 "Design Tools" = "Design Tools";
@@ -28,6 +30,7 @@
 "GitHub API request failed: HTTP %lld" = "GitHub API request failed: HTTP %lld";
 "GitHub API returned an invalid response" = "GitHub API returned an invalid response";
 "GitHub token is invalid or expired" = "GitHub token is invalid or expired";
+"GitHub Token" = "GitHub Token";
 "GitHub token not found. Please sign in again." = "GitHub token not found. Please sign in again.";
 "Export Repositories" = "Export Repositories";
 "Import Repositories" = "Import Repositories";
@@ -44,10 +47,16 @@
 "Open GitHub" = "Open GitHub";
 "Open GitHub Token Settings" = "Open GitHub Token Settings";
 "Owner" = "Owner";
+"Pushed" = "Pushed";
 "Productivity" = "Productivity";
 "Repository" = "Repository";
 "Repository archive is empty" = "Repository archive is empty";
 "Repository archive is ready" = "Repository archive is ready";
+"Repository README is unavailable because the repository name is invalid." = "Repository README is unavailable because the repository name is invalid.";
+"README" = "README";
+"Loading README..." = "Loading README...";
+"No README found" = "No README found";
+"Retry" = "Retry";
 "Search name, description, topics, or notes" = "Search name, description, topics, or notes";
 "Security Tools" = "Security Tools";
 "Sign Out" = "Sign Out";
@@ -64,6 +73,7 @@
 "Sync and manage your GitHub Stars with a Personal Access Token." = "Sync and manage your GitHub Stars with a Personal Access Token.";
 "Syncing" = "Syncing";
 "This will remove %@ from your GitHub Stars." = "This will remove %@ from your GitHub Stars.";
+"This repository does not have a README." = "This repository does not have a README.";
 "Token Permissions" = "Token Permissions";
 "Token data in Keychain is invalid" = "Token data in Keychain is invalid";
 "Uncategorized" = "Uncategorized";

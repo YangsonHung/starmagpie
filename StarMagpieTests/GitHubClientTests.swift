@@ -43,6 +43,38 @@ final class GitHubClientTests: XCTestCase {
         }
     }
 
+    func testFetchReadmeHTMLUsesRepositoryReadmeEndpoint() async throws {
+        let session = MockHTTPSession(responses: [.success(json: "<h1>Hello</h1>")])
+        let client = GitHubClient(
+            token: "token",
+            baseURL: URL(string: "https://api.example.test")!,
+            session: session,
+            pageDelayNanoseconds: 0
+        )
+
+        let readme = try await client.fetchReadmeHTML(owner: "octocat", repo: "Hello-World")
+
+        XCTAssertEqual(readme.html, "<h1>Hello</h1>")
+        XCTAssertEqual(readme.baseURL.absoluteString, "https://github.com/octocat/Hello-World")
+        XCTAssertEqual(session.requests.count, 1)
+        XCTAssertEqual(session.requests[0].url?.path, "/repos/octocat/Hello-World/readme")
+        XCTAssertEqual(session.requests[0].value(forHTTPHeaderField: "Accept"), "application/vnd.github.html+json")
+        XCTAssertEqual(session.requests[0].value(forHTTPHeaderField: "X-GitHub-Api-Version"), "2022-11-28")
+        XCTAssertEqual(session.requests[0].value(forHTTPHeaderField: "Authorization"), "Bearer token")
+    }
+
+    func testFetchReadmeHTMLMaps404ToReadmeNotFound() async {
+        let session = MockHTTPSession(responses: [.failure(status: 404)])
+        let client = GitHubClient(token: "token", session: session, pageDelayNanoseconds: 0)
+
+        do {
+            _ = try await client.fetchReadmeHTML(owner: "octocat", repo: "Missing")
+            XCTFail("Expected README not found error")
+        } catch {
+            XCTAssertEqual(error as? RepositoryReadmeError, .notFound)
+        }
+    }
+
     func testNetworkErrorIsPropagated() async {
         struct NetworkFailure: Error {}
         let session = MockHTTPSession(responses: [.networkError(NetworkFailure())])
@@ -124,4 +156,3 @@ private final class MockHTTPSession: HTTPSession {
         )!
     }
 }
-

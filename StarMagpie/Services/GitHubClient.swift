@@ -87,6 +87,25 @@ final class GitHubClient {
         _ = try await perform(request, acceptsNoContent: true)
     }
 
+    func fetchReadmeHTML(owner: String, repo: String) async throws -> RepositoryReadme {
+        let request = makeRequest(
+            pathComponents: ["repos", owner, repo, "readme"],
+            accept: "application/vnd.github.html+json"
+        )
+        let data = try await perform(request, notFoundError: RepositoryReadmeError.notFound)
+        guard let html = String(data: data, encoding: .utf8) else {
+            throw RepositoryReadmeError.invalidEncoding
+        }
+
+        let readmeBaseURL = URL(string: "https://github.com")!
+            .appendingPathComponent(owner)
+            .appendingPathComponent(repo)
+        return RepositoryReadme(
+            html: html,
+            baseURL: readmeBaseURL
+        )
+    }
+
     private func fetchStarredRepositories(page: Int, perPage: Int) async throws -> [GitHubStarredItem] {
         let queryItems = [
             URLQueryItem(name: "page", value: String(page)),
@@ -124,7 +143,11 @@ final class GitHubClient {
         return request
     }
 
-    private func perform(_ request: URLRequest, acceptsNoContent: Bool = false) async throws -> Data {
+    private func perform(
+        _ request: URLRequest,
+        acceptsNoContent: Bool = false,
+        notFoundError: Error? = nil
+    ) async throws -> Data {
         let (data, response) = try await session.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw GitHubClientError.invalidResponse
@@ -135,6 +158,9 @@ final class GitHubClient {
         }
 
         guard (200..<300).contains(httpResponse.statusCode) else {
+            if httpResponse.statusCode == 404, let notFoundError {
+                throw notFoundError
+            }
             if httpResponse.statusCode == 401 {
                 throw GitHubClientError.invalidToken
             }

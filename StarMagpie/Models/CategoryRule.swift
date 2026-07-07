@@ -25,10 +25,21 @@ struct CategoryRule: Identifiable, Hashable {
     ]
 
     static func name(for id: String?) -> String {
-        guard let id else { return AppLocalizer.text("Auto Category") }
-        if id == uncategorizedId { return AppLocalizer.text("Uncategorized") }
+        name(for: id, language: nil)
+    }
+
+    static func name(for id: String?, language: AppLanguage?) -> String {
+        guard let id else { return localized("Auto Category", language: language) }
+        if id == uncategorizedId { return localized("Uncategorized", language: language) }
         let name = defaults.first(where: { $0.id == id })?.name ?? "Auto Category"
-        return AppLocalizer.text(name)
+        return localized(name, language: language)
+    }
+
+    private static func localized(_ key: String, language: AppLanguage?) -> String {
+        if let language {
+            return AppLocalizer.text(key, language: language)
+        }
+        return AppLocalizer.text(key)
     }
 }
 

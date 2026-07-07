@@ -39,7 +39,7 @@ The app is intentionally small and native. It uses SwiftUI, SwiftData, URLSessio
 - Local persistence with SwiftData.
 - Fast search across repository name, full name, description, topics, language, and notes.
 - Built-in keyword categories plus manual category overrides.
-- Repository notes, link copying, GitHub opening, and unstarring.
+- Repository README preview, notes, link copying, GitHub opening, and unstarring.
 - JSON import and export for local repository data, categories, notes, and last viewed timestamps.
 - English and Simplified Chinese localization with an in-app language picker.
 
@@ -93,8 +93,9 @@ Select the `StarMagpie` scheme in Xcode and run the app.
 1. Create a GitHub Personal Access Token with access to your starred repositories.
 2. Launch StarMagpie and sign in with the token.
 3. Click Sync to load your starred repositories.
-4. Use search, language filtering, sorting, categories, and notes to organize repositories.
-5. Use the Data menu to export or import a StarMagpie JSON archive.
+4. Select a repository to view its metadata, README, category, and notes.
+5. Use search, language filtering, sorting, categories, and notes to organize repositories.
+6. Use the Data menu to export or import a StarMagpie JSON archive.
 
 Import behavior is merge-based: repositories with the same GitHub repo `id` are updated, and local repositories missing from the archive are kept.
 
@@ -184,6 +185,7 @@ StarMagpie/
 │   ├── Models/                 # SwiftData models and filtering logic
 │   ├── Services/               # GitHub API, Keychain, archive, and sync services
 │   ├── Utilities/              # Localization, documents, and global settings helpers
+│   ├── ViewModels/             # Detail loading and presentation state
 │   ├── Views/                  # SwiftUI views
 │   ├── Assets.xcassets/        # App icon and assets
 │   ├── en.lproj/               # English localization

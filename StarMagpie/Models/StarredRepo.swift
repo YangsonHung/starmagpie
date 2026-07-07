@@ -74,13 +74,32 @@ final class StarredRepo: Identifiable {
     }
 
     var languageDisplay: String {
-        language?.isEmpty == false ? language! : AppLocalizer.text("Unknown")
+        displayLanguage(language: nil)
     }
 
     var categoryDisplayName: String {
+        displayCategoryName(language: nil)
+    }
+
+    func displayLanguage(language appLanguage: AppLanguage?) -> String {
+        guard let language, !language.isEmpty else {
+            if let appLanguage {
+                return AppLocalizer.text("Unknown", language: appLanguage)
+            }
+            return AppLocalizer.text("Unknown")
+        }
+        return language
+    }
+
+    func displayCategoryName(language appLanguage: AppLanguage?) -> String {
         let categoryId = CategoryResolver.resolvedCategoryId(for: self)
-        if categoryId == nil { return AppLocalizer.text("Uncategorized") }
-        return CategoryRule.name(for: categoryId)
+        if categoryId == nil {
+            if let appLanguage {
+                return AppLocalizer.text("Uncategorized", language: appLanguage)
+            }
+            return AppLocalizer.text("Uncategorized")
+        }
+        return CategoryRule.name(for: categoryId, language: appLanguage)
     }
 
     func updateRemoteFields(from item: GitHubStarredItem) {

@@ -2,6 +2,7 @@ import AppKit
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject private var appSettings: AppSettings
     @ObservedObject var repository: StarRepository
     let onSignedIn: () -> Void
 
@@ -25,12 +26,12 @@ struct LoginView: View {
                 Text("StarMagpie")
                     .font(.largeTitle.bold())
 
-                Text("Sync and manage your GitHub Stars with a Personal Access Token.")
+                Text(localized("Sync and manage your GitHub Stars with a Personal Access Token."))
                     .foregroundStyle(.secondary)
             }
 
             VStack(alignment: .leading, spacing: 12) {
-                Text("GitHub Token")
+                Text(localized("GitHub Token"))
                     .font(.headline)
 
                 SecureField("ghp_xxxxxxxxxxxxxxxxxxxx", text: $token)
@@ -51,7 +52,7 @@ struct LoginView: View {
                             ProgressView()
                                 .controlSize(.small)
                         }
-                        Text(isSigningIn ? AppLocalizer.text("Connecting...") : AppLocalizer.text("Connect GitHub"))
+                        Text(isSigningIn ? localized("Connecting...") : localized("Connect GitHub"))
                     }
                     .frame(maxWidth: .infinity)
                 }
@@ -62,12 +63,12 @@ struct LoginView: View {
             .frame(width: 420)
 
             VStack(alignment: .leading, spacing: 6) {
-                Text("Token Permissions")
+                Text(localized("Token Permissions"))
                     .font(.headline)
-                Text("StarMagpie needs permission to read your Stars. Unstarring requires write access to starred repositories. Fine-grained tokens can grant the matching account resource permission.")
+                Text(localized("StarMagpie needs permission to read your Stars. Unstarring requires write access to starred repositories. Fine-grained tokens can grant the matching account resource permission."))
                     .font(.callout)
                     .foregroundStyle(.secondary)
-                Button("Open GitHub Token Settings") {
+                Button(localized("Open GitHub Token Settings")) {
                     NSWorkspace.shared.open(URL(string: "https://github.com/settings/tokens")!)
                 }
                 .buttonStyle(.link)
@@ -77,6 +78,14 @@ struct LoginView: View {
             Spacer()
         }
         .padding(40)
+    }
+
+    private var language: AppLanguage {
+        appSettings.language
+    }
+
+    private func localized(_ key: String) -> String {
+        AppLocalizer.text(key, language: language)
     }
 
     private func signIn() {
