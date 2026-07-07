@@ -4,6 +4,8 @@ This project keeps a user-facing changelog. After releases, append changes by ve
 
 ## Unreleased
 
+## v0.3.1 - 2026-07-07
+
 ### Fixed
 
 - Improved GitHub 403 handling so missing token permissions recommend the classic personal access token scopes needed for sync and unstar.
