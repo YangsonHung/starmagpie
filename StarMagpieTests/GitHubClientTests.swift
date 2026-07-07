@@ -55,7 +55,7 @@ final class GitHubClientTests: XCTestCase {
         let readme = try await client.fetchReadmeHTML(owner: "octocat", repo: "Hello-World")
 
         XCTAssertEqual(readme.html, "<h1>Hello</h1>")
-        XCTAssertEqual(readme.baseURL.absoluteString, "https://github.com/octocat/Hello-World")
+        XCTAssertEqual(readme.baseURL.absoluteString, "https://raw.githubusercontent.com/octocat/Hello-World/HEAD/")
         XCTAssertEqual(session.requests.count, 1)
         XCTAssertEqual(session.requests[0].url?.path, "/repos/octocat/Hello-World/readme")
         XCTAssertEqual(session.requests[0].value(forHTTPHeaderField: "Accept"), "application/vnd.github.html+json")

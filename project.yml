@@ -15,6 +15,7 @@ fileGroups:
   - SUPPORT.md
   - CHANGELOG.md
   - AGENTS.md
+  - interface.jpg
   - .github
   - docs
   - scripts
@@ -43,8 +44,8 @@ targets:
         CFBundleName: StarMagpie
         CFBundleIconName: AppIcon
         CFBundleDevelopmentRegion: en
-        CFBundleShortVersionString: "0.2.0"
-        CFBundleVersion: "2"
+        CFBundleShortVersionString: "0.3.0"
+        CFBundleVersion: "3"
         LSMinimumSystemVersion: "14.0"
         LSApplicationCategoryType: public.app-category.productivity
         NSHumanReadableCopyright: Copyright © 2026

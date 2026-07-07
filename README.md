@@ -25,6 +25,10 @@
   <img alt="XcodeGen" src="https://img.shields.io/badge/project-XcodeGen-147EFB.svg">
 </p>
 
+<p align="center">
+  <img src="interface.jpg" alt="StarMagpie interface screenshot">
+</p>
+
 ## Overview
 
 StarMagpie syncs your GitHub starred repositories to your Mac and keeps them useful after the initial star. It stores repository metadata locally, lets you search across names, descriptions, languages, topics, and notes, and gives each repository a category so your Stars become easier to revisit.
@@ -38,8 +42,9 @@ The app is intentionally small and native. It uses SwiftUI, SwiftData, URLSessio
 - Paginated GitHub Stars sync using `application/vnd.github.star+json`, preserving `starred_at`.
 - Local persistence with SwiftData.
 - Fast search across repository name, full name, description, topics, language, and notes.
+- Two-column repository browser with list and card view modes.
 - Built-in keyword categories plus manual category overrides.
-- Repository README preview, notes, link copying, GitHub opening, and unstarring.
+- Dedicated repository detail modal with README preview, notes, link copying, GitHub opening, and unstarring.
 - JSON import and export for local repository data, categories, notes, and last viewed timestamps.
 - English and Simplified Chinese localization with an in-app language picker.
 
@@ -93,9 +98,10 @@ Select the `StarMagpie` scheme in Xcode and run the app.
 1. Create a GitHub Personal Access Token with access to your starred repositories.
 2. Launch StarMagpie and sign in with the token.
 3. Click Sync to load your starred repositories.
-4. Select a repository to view its metadata, README, category, and notes.
-5. Use search, language filtering, sorting, categories, and notes to organize repositories.
-6. Use the Data menu to export or import a StarMagpie JSON archive.
+4. Browse repositories in list or card mode, then click a repository to open its detail modal.
+5. View metadata, README, category, notes, and quick actions in the detail modal.
+6. Use search, language filtering, sorting, categories, and notes to organize repositories.
+7. Use the Data menu to export or import a StarMagpie JSON archive.
 
 Import behavior is merge-based: repositories with the same GitHub repo `id` are updated, and local repositories missing from the archive are kept.
 

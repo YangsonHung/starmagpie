@@ -4,6 +4,22 @@ This project keeps a user-facing changelog. After releases, append changes by ve
 
 ## Unreleased
 
+## v0.3.0 - 2026-07-07
+
+### Added
+
+- README interface screenshot.
+
+### Changed
+
+- Reworked the main window into a two-column browser to remove the inline detail pane and its nested scrolling.
+- Added list and card view modes for repository browsing.
+- Moved repository details, notes, actions, and README preview into a dedicated modal detail view.
+
+### Fixed
+
+- Fixed relative README images and raw README links from GitHub repositories in the preview.
+
 ## v0.2.0 - 2026-07-07
 
 ### Added

@@ -49,7 +49,7 @@ struct ReadmeWebView: NSViewRepresentable {
                 return
             }
 
-            NSWorkspace.shared.open(url)
+            NSWorkspace.shared.open(ReadmeURLMapper.externalURL(for: url))
             decisionHandler(.cancel)
         }
     }
@@ -196,5 +196,32 @@ struct ReadmeWebView: NSViewRepresentable {
         </body>
         </html>
         """
+    }
+}
+
+enum ReadmeURLMapper {
+    static func externalURL(for url: URL) -> URL {
+        githubURL(forRawContentURL: url) ?? url
+    }
+
+    private static func githubURL(forRawContentURL url: URL) -> URL? {
+        guard url.host == "raw.githubusercontent.com" else { return nil }
+
+        let pathComponents = url.pathComponents.filter { $0 != "/" }
+        guard pathComponents.count >= 3 else { return nil }
+
+        let owner = pathComponents[0]
+        let repo = pathComponents[1]
+        let ref = pathComponents[2]
+        let filePath = pathComponents.dropFirst(3).joined(separator: "/")
+
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "github.com"
+        components.path = filePath.isEmpty
+            ? "/\(owner)/\(repo)/tree/\(ref)"
+            : "/\(owner)/\(repo)/blob/\(ref)/\(filePath)"
+        components.fragment = URLComponents(url: url, resolvingAgainstBaseURL: false)?.fragment
+        return components.url
     }
 }

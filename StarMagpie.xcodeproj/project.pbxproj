@@ -30,6 +30,7 @@
 		B0DAC996F1E0E8BB6E741605 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AC94607038812C850C69E5 /* MainView.swift */; };
 		B6B75EDE22A744FB4B6C14AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3EE32BBFF427763A7EAD5D0 /* InfoPlist.strings */; };
 		BA35D4CBD5930056CE306058 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0356B582FC279FA8E48A584 /* ContentView.swift */; };
+		C6610F3B66B289E4E15D9F70 /* ReadmeURLMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25760360915430B38193586A /* ReadmeURLMapperTests.swift */; };
 		C72722DB51BEAB2D6A2C00E7 /* RepositoryReadme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952DDF6342A7D81EB9E69EEF /* RepositoryReadme.swift */; };
 		CF0091C895203ED1A8B038E4 /* ReadmeWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C354E3DE8F325EBE194AEE19 /* ReadmeWebView.swift */; };
 		DB95D4089AEFA505C2002E6B /* AppLanguageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1528A831C3270B83155D7A /* AppLanguageTests.swift */; };
@@ -55,11 +56,13 @@
 
 /* Begin PBXFileReference section */
 		06D72E6EB31E62D6DEC44A3F /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		100492D1A93B2A990DC5FE62 /* interface.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = interface.jpg; sourceTree = "<group>"; };
 		111E91B21D5A027F3096217C /* bug_report.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = bug_report.yml; sourceTree = "<group>"; };
 		14DDC27DF50320837773A085 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		1FCE69FEE1E1EDA4F1E02885 /* release-unsigned.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "release-unsigned.yml"; sourceTree = "<group>"; };
 		2206C42B3B1229B0CD1F4DFC /* CODEOWNERS */ = {isa = PBXFileReference; path = CODEOWNERS; sourceTree = "<group>"; };
 		24D6234EF42BC46FF755CA95 /* config.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = config.yml; sourceTree = "<group>"; };
+		25760360915430B38193586A /* ReadmeURLMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadmeURLMapperTests.swift; sourceTree = "<group>"; };
 		25DF38053F2340CC7671653E /* feature_request.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = feature_request.yml; sourceTree = "<group>"; };
 		281CBC3AA1532EE2AFB20A3C /* LocalizedViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedViews.swift; sourceTree = "<group>"; };
 		2A6A0C942E081D14809194D9 /* StarMagpieApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarMagpieApp.swift; sourceTree = "<group>"; };
@@ -222,6 +225,7 @@
 				EA1528A831C3270B83155D7A /* AppLanguageTests.swift */,
 				A68AEAB55FC785D197FA5834 /* GitHubClientTests.swift */,
 				8724C52D11482109D72C1D87 /* GitHubDTOTests.swift */,
+				25760360915430B38193586A /* ReadmeURLMapperTests.swift */,
 				53D2F3F65C6A506DF1810C02 /* RepositoryFilterTests.swift */,
 				A2B5E4CB27B3A76D1F1784B8 /* RepositoryIdentityTests.swift */,
 				33AEEDED5F6ECDD1D9B849D4 /* RepositoryReadmeViewModelTests.swift */,
@@ -275,6 +279,7 @@
 				06D72E6EB31E62D6DEC44A3F /* CHANGELOG.md */,
 				75C0D2528D6BB731F25BEC61 /* CODE_OF_CONDUCT.md */,
 				14DDC27DF50320837773A085 /* CONTRIBUTING.md */,
+				100492D1A93B2A990DC5FE62 /* interface.jpg */,
 				823D2E43619D055C38E54B58 /* LICENSE */,
 				F547B53C9911D5193E847848 /* README.md */,
 				47049345BAF4E0552AA4029D /* README.zh-CN.md */,
@@ -399,6 +404,7 @@
 				DB95D4089AEFA505C2002E6B /* AppLanguageTests.swift in Sources */,
 				5D582A142662675C0486B0AE /* GitHubClientTests.swift in Sources */,
 				3A3D1B8F003D4FF7A4A43744 /* GitHubDTOTests.swift in Sources */,
+				C6610F3B66B289E4E15D9F70 /* ReadmeURLMapperTests.swift in Sources */,
 				3DE6C26674BB451CC234F551 /* RepositoryFilterTests.swift in Sources */,
 				EBC5B01BF1EF7D6073836C65 /* RepositoryIdentityTests.swift in Sources */,
 				653DCB7B6090050D7BCBEEA0 /* RepositoryReadmeViewModelTests.swift in Sources */,

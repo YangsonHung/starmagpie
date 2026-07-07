@@ -97,9 +97,7 @@ final class GitHubClient {
             throw RepositoryReadmeError.invalidEncoding
         }
 
-        let readmeBaseURL = URL(string: "https://github.com")!
-            .appendingPathComponent(owner)
-            .appendingPathComponent(repo)
+        let readmeBaseURL = URL(string: "https://raw.githubusercontent.com/\(owner)/\(repo)/HEAD/")!
         return RepositoryReadme(
             html: html,
             baseURL: readmeBaseURL

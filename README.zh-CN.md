@@ -25,6 +25,10 @@
   <img alt="XcodeGen" src="https://img.shields.io/badge/project-XcodeGen-147EFB.svg">
 </p>
 
+<p align="center">
+  <img src="interface.jpg" alt="StarMagpie 界面截图">
+</p>
+
 ## 概览
 
 StarMagpie 会把你的 GitHub starred repositories 同步到本机，并让 Star 之后的整理过程更有效。它会在本地保存仓库元数据，支持按名称、描述、语言、Topics 和备注搜索，并为仓库提供分类能力，方便你之后重新找到和使用这些项目。
@@ -38,8 +42,9 @@ StarMagpie 会把你的 GitHub starred repositories 同步到本机，并让 Sta
 - 使用 `application/vnd.github.star+json` 响应格式分页同步 GitHub Stars，并保留 `starred_at`。
 - 使用 SwiftData 进行本地持久化。
 - 支持按仓库名、完整名称、描述、Topics、语言和备注搜索。
+- 两栏仓库浏览界面，支持列表和卡片两种视图。
 - 内置关键词分类，并支持手动分类覆盖。
-- 支持仓库 README 预览、备注、复制链接、打开 GitHub 和取消 Star。
+- 使用独立详情弹窗展示仓库 README、备注、复制链接、打开 GitHub 和取消 Star。
 - 支持 JSON 导入导出，保留本地仓库数据、分类、备注和最后查看时间。
 - 支持英文和简体中文本地化，并提供 App 内语言切换。
 
@@ -93,9 +98,10 @@ open StarMagpie.xcodeproj
 1. 创建一个可以访问 starred repositories 的 GitHub Personal Access Token。
 2. 启动 StarMagpie，并使用 Token 登录。
 3. 点击 Sync 同步你的 GitHub Stars。
-4. 选择仓库后查看元数据、README、分类和备注。
-5. 使用搜索、语言筛选、排序、分类和备注整理仓库。
-6. 使用 Data 菜单导入或导出 StarMagpie JSON 归档。
+4. 使用列表或卡片视图浏览仓库，点击仓库后打开详情弹窗。
+5. 在详情弹窗中查看元数据、README、分类、备注和快捷操作。
+6. 使用搜索、语言筛选、排序、分类和备注整理仓库。
+7. 使用 Data 菜单导入或导出 StarMagpie JSON 归档。
 
 导入采用合并策略：GitHub repo `id` 相同的仓库会被更新，归档中没有出现的本地仓库会保留。
 

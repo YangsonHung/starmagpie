@@ -4,6 +4,10 @@
 "Analytics" = "数据分析";
 "Auto Category" = "自动分类";
 "Cancel" = "取消";
+"Cards" = "卡片";
+"Click Sync to load your GitHub Stars." = "点击同步加载你的 GitHub Stars。";
+"Close" = "关闭";
+"Collapse Notes" = "收起备注";
 "Categories" = "分类";
 "Category" = "分类";
 "Confirm Unstar" = "确认取消 Star";
@@ -16,11 +20,13 @@
 "Data" = "数据";
 "Design Tools" = "设计工具";
 "Desktop Apps" = "桌面应用";
+"Details" = "详情";
 "Developer Tools" = "开发工具";
 "Education" = "教育学习";
 "Enter a GitHub Personal Access Token" = "请输入 GitHub Personal Access Token";
 "App Language" = "应用语言";
 "English" = "English";
+"Expand Notes" = "展开备注";
 "Follow System" = "跟随系统";
 "Force Uncategorized" = "强制未分类";
 "Forks" = "派生";
@@ -38,12 +44,16 @@
 "Invalid repository full name: %@" = "仓库名称格式无效：%@";
 "Keychain operation failed: %lld" = "Keychain 操作失败：%lld";
 "Language" = "语言";
+"List" = "列表";
 "Manual Category" = "手动分类";
 "Mobile Apps" = "移动应用";
 "Name" = "名称";
+"No Matching Repositories" = "没有匹配的仓库";
 "No Repositories" = "暂无仓库";
 "No description" = "无描述";
 "Notes" = "备注";
+"Add a note about why this repository matters, how to use it, or what to revisit." = "记录这个仓库的用途、评价或待办。";
+"Open Details" = "打开详情";
 "Open GitHub" = "打开 GitHub";
 "Open GitHub Token Settings" = "打开 GitHub Token 设置";
 "Owner" = "所有者";
@@ -76,6 +86,7 @@
 "This repository does not have a README." = "这个仓库没有 README。";
 "Token Permissions" = "Token 权限";
 "Token data in Keychain is invalid" = "Keychain 中的 Token 数据无效";
+"Try another search, language, or category." = "尝试调整搜索、语言或分类。";
 "Uncategorized" = "未分类";
 "Unknown" = "未知";
 "Unstar" = "取消 Star";
@@ -84,4 +95,5 @@
 "Unsupported repository archive version: %lld" = "不支持的仓库归档版本：%lld";
 "Updated" = "更新";
 "Updated Date" = "更新时间";
+"View" = "视图";
 "Web Apps" = "Web 应用";

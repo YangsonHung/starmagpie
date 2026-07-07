@@ -4,6 +4,10 @@
 "Analytics" = "Analytics";
 "Auto Category" = "Auto Category";
 "Cancel" = "Cancel";
+"Cards" = "Cards";
+"Click Sync to load your GitHub Stars." = "Click Sync to load your GitHub Stars.";
+"Close" = "Close";
+"Collapse Notes" = "Collapse Notes";
 "Categories" = "Categories";
 "Category" = "Category";
 "Confirm Unstar" = "Confirm Unstar";
@@ -16,11 +20,13 @@
 "Data" = "Data";
 "Design Tools" = "Design Tools";
 "Desktop Apps" = "Desktop Apps";
+"Details" = "Details";
 "Developer Tools" = "Developer Tools";
 "Education" = "Education";
 "Enter a GitHub Personal Access Token" = "Enter a GitHub Personal Access Token";
 "App Language" = "App Language";
 "English" = "English";
+"Expand Notes" = "Expand Notes";
 "Follow System" = "Follow System";
 "Force Uncategorized" = "Force Uncategorized";
 "Forks" = "Forks";
@@ -38,12 +44,16 @@
 "Invalid repository full name: %@" = "Invalid repository full name: %@";
 "Keychain operation failed: %lld" = "Keychain operation failed: %lld";
 "Language" = "Language";
+"List" = "List";
 "Manual Category" = "Manual Category";
 "Mobile Apps" = "Mobile Apps";
 "Name" = "Name";
+"No Matching Repositories" = "No Matching Repositories";
 "No Repositories" = "No Repositories";
 "No description" = "No description";
 "Notes" = "Notes";
+"Add a note about why this repository matters, how to use it, or what to revisit." = "Add a note about why this repository matters, how to use it, or what to revisit.";
+"Open Details" = "Open Details";
 "Open GitHub" = "Open GitHub";
 "Open GitHub Token Settings" = "Open GitHub Token Settings";
 "Owner" = "Owner";
@@ -76,6 +86,7 @@
 "This repository does not have a README." = "This repository does not have a README.";
 "Token Permissions" = "Token Permissions";
 "Token data in Keychain is invalid" = "Token data in Keychain is invalid";
+"Try another search, language, or category." = "Try another search, language, or category.";
 "Uncategorized" = "Uncategorized";
 "Unknown" = "Unknown";
 "Unstar" = "Unstar";
@@ -84,4 +95,5 @@
 "Unsupported repository archive version: %lld" = "Unsupported repository archive version: %lld";
 "Updated" = "Updated";
 "Updated Date" = "Updated Date";
+"View" = "View";
 "Web Apps" = "Web Apps";
