@@ -50,6 +50,14 @@ final class StarRepository: ObservableObject {
         }
     }
 
+    func updateToken(_ token: String) async -> Bool {
+        let success = await signIn(token: token)
+        if success {
+            statusMessage = AppLocalizer.text("GitHub token updated")
+        }
+        return success
+    }
+
     func syncStars() async {
         guard let token = try? tokenStore.loadToken() else {
             errorMessage = AppLocalizer.text("GitHub token not found. Please sign in again.")

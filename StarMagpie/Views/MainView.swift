@@ -17,6 +17,7 @@ struct MainView: View {
     @State private var browserLayout = RepositoryBrowserLayout.list
     @State private var isImporting = false
     @State private var isExporting = false
+    @State private var isUpdatingToken = false
     @State private var exportDocument = RepositoryArchiveDocument()
 
     init(
@@ -103,6 +104,12 @@ struct MainView: View {
                 }
                 .disabled(repository.isSyncing)
 
+                Button {
+                    isUpdatingToken = true
+                } label: {
+                    LocalizedLabel(key: "Update GitHub Token", systemImage: "key")
+                }
+
                 if repository.isSyncing {
                     ProgressView()
                         .controlSize(.small)
@@ -128,6 +135,12 @@ struct MainView: View {
             defaultFilename: "StarMagpie-Repositories",
             onCompletion: handleExportCompletion
         )
+        .sheet(isPresented: $isUpdatingToken) {
+            GitHubTokenUpdateView(repository: repository) {
+                isUpdatingToken = false
+                Task { await repository.syncStars() }
+            }
+        }
         .overlay(alignment: .bottom) {
             VStack(spacing: 8) {
                 if let errorMessage = repository.errorMessage {
@@ -181,6 +194,108 @@ struct MainView: View {
     private func handleExportCompletion(_ result: Result<URL, Error>) {
         if case .failure(let error) = result {
             repository.report(error)
+        }
+    }
+}
+
+private struct GitHubTokenUpdateView: View {
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var appSettings: AppSettings
+    @ObservedObject var repository: StarRepository
+    let onUpdated: () -> Void
+
+    @State private var token = ""
+    @State private var isUpdating = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Label(localized("Update GitHub Token"), systemImage: "key")
+                    .font(.title2.bold())
+                Spacer()
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                }
+                .buttonStyle(.plain)
+                .help(localized("Close"))
+            }
+
+            Text(localized("Replace the token stored in Keychain without deleting local repositories, notes, or categories."))
+                .font(.callout)
+                .foregroundStyle(.secondary)
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text(localized("GitHub Token"))
+                    .font(.headline)
+                SecureField("github_pat_xxxxxxxxxxxxxxxxxxxx", text: $token)
+                    .textFieldStyle(.roundedBorder)
+                    .onSubmit { updateToken() }
+            }
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text(localized("Token Permissions"))
+                    .font(.headline)
+                Text(localized("For full sync and unstar support, use a classic personal access token with public_repo scope. Use repo scope if you need private repositories."))
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                Button(localized("Open Classic Token Settings")) {
+                    NSWorkspace.shared.open(URL(string: "https://github.com/settings/tokens/new")!)
+                }
+                .buttonStyle(.link)
+            }
+
+            if let errorMessage = repository.errorMessage {
+                Label(errorMessage, systemImage: "exclamationmark.triangle")
+                    .font(.callout)
+                    .foregroundStyle(.red)
+            }
+
+            HStack {
+                Button(localized("Cancel")) {
+                    dismiss()
+                }
+                Spacer()
+                Button {
+                    updateToken()
+                } label: {
+                    HStack {
+                        if isUpdating {
+                            ProgressView()
+                                .controlSize(.small)
+                        }
+                        Text(isUpdating ? localized("Connecting...") : localized("Save Token"))
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(token.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isUpdating)
+            }
+        }
+        .padding(24)
+        .frame(width: 520)
+    }
+
+    private var language: AppLanguage {
+        appSettings.language
+    }
+
+    private func localized(_ key: String) -> String {
+        AppLocalizer.text(key, language: language)
+    }
+
+    private func updateToken() {
+        guard !isUpdating else { return }
+        isUpdating = true
+        Task {
+            let success = await repository.updateToken(token)
+            await MainActor.run {
+                isUpdating = false
+                if success {
+                    token = ""
+                    onUpdated()
+                }
+            }
         }
     }
 }

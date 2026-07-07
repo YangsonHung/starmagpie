@@ -43,6 +43,80 @@ final class GitHubClientTests: XCTestCase {
         }
     }
 
+    func testUnstarUsesAuthenticatedStarredEndpoint() async throws {
+        let session = MockHTTPSession(responses: [.success(json: "", status: 204)])
+        let client = GitHubClient(
+            token: "token",
+            baseURL: URL(string: "https://api.example.test")!,
+            session: session,
+            pageDelayNanoseconds: 0
+        )
+
+        try await client.unstar(owner: "octocat", repo: "Hello-World")
+
+        XCTAssertEqual(session.requests.count, 1)
+        XCTAssertEqual(session.requests[0].httpMethod, "DELETE")
+        XCTAssertEqual(session.requests[0].url?.path, "/user/starred/octocat/Hello-World")
+        XCTAssertEqual(session.requests[0].value(forHTTPHeaderField: "Accept"), "application/vnd.github+json")
+        XCTAssertEqual(session.requests[0].value(forHTTPHeaderField: "X-GitHub-Api-Version"), "2022-11-28")
+        XCTAssertEqual(session.requests[0].value(forHTTPHeaderField: "Authorization"), "Bearer token")
+    }
+
+    func testUnstarMapsForbiddenToPermissionDenied() async {
+        let session = MockHTTPSession(responses: [.failure(status: 403)])
+        let client = GitHubClient(token: "token", session: session, pageDelayNanoseconds: 0)
+
+        do {
+            try await client.unstar(owner: "octocat", repo: "Hello-World")
+            XCTFail("Expected permission denied error")
+        } catch {
+            XCTAssertEqual(error as? GitHubClientError, .permissionDenied(detail: nil))
+        }
+    }
+
+    func testUnstarPermissionDeniedIncludesGitHubResponseDetails() async {
+        let session = MockHTTPSession(responses: [
+            .failure(
+                json: #"{"message":"Resource not accessible by personal access token"}"#,
+                status: 403,
+                headers: ["X-Accepted-GitHub-Permissions": "starring=write; metadata=read"]
+            )
+        ])
+        let client = GitHubClient(token: "token", session: session, pageDelayNanoseconds: 0)
+
+        do {
+            try await client.unstar(owner: "octocat", repo: "Hello-World")
+            XCTFail("Expected permission denied error")
+        } catch {
+            XCTAssertEqual(
+                error as? GitHubClientError,
+                .permissionDenied(
+                    detail: "Resource not accessible by personal access token X-Accepted-GitHub-Permissions: starring=write; metadata=read"
+                )
+            )
+        }
+    }
+
+    func testRateLimitedForbiddenMapsToRateLimitExceeded() async {
+        let session = MockHTTPSession(responses: [
+            .failure(status: 403, headers: [
+                "X-RateLimit-Remaining": "0",
+                "X-RateLimit-Reset": "1700000000"
+            ])
+        ])
+        let client = GitHubClient(token: "token", session: session, pageDelayNanoseconds: 0)
+
+        do {
+            _ = try await client.fetchAllStarredRepositories()
+            XCTFail("Expected rate limit error")
+        } catch {
+            XCTAssertEqual(
+                error as? GitHubClientError,
+                .rateLimitExceeded(resetDate: Date(timeIntervalSince1970: 1_700_000_000))
+            )
+        }
+    }
+
     func testFetchReadmeHTMLUsesRepositoryReadmeEndpoint() async throws {
         let session = MockHTTPSession(responses: [.success(json: "<h1>Hello</h1>")])
         let client = GitHubClient(
@@ -123,7 +197,7 @@ final class GitHubClientTests: XCTestCase {
 private final class MockHTTPSession: HTTPSession {
     enum Response {
         case success(json: String, status: Int = 200, headers: [String: String] = [:])
-        case failure(status: Int, headers: [String: String] = [:])
+        case failure(json: String = "", status: Int, headers: [String: String] = [:])
         case networkError(Error)
     }
 
@@ -140,8 +214,8 @@ private final class MockHTTPSession: HTTPSession {
         switch response {
         case .success(let json, let status, let headers):
             return (Data(json.utf8), httpResponse(for: request, status: status, headers: headers))
-        case .failure(let status, let headers):
-            return (Data(), httpResponse(for: request, status: status, headers: headers))
+        case .failure(let json, let status, let headers):
+            return (Data(json.utf8), httpResponse(for: request, status: status, headers: headers))
         case .networkError(let error):
             throw error
         }

@@ -4,6 +4,11 @@ This project keeps a user-facing changelog. After releases, append changes by ve
 
 ## Unreleased
 
+### Fixed
+
+- Improved GitHub 403 handling so missing token permissions recommend the classic personal access token scopes needed for sync and unstar.
+- Updated token guidance with step-by-step classic personal access token setup for full unstar support.
+
 ## v0.3.0 - 2026-07-07
 
 ### Added

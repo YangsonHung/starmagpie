@@ -65,11 +65,11 @@ struct LoginView: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text(localized("Token Permissions"))
                     .font(.headline)
-                Text(localized("StarMagpie needs permission to read your Stars. Unstarring requires write access to starred repositories. Fine-grained tokens can grant the matching account resource permission."))
+                Text(localized("For full sync and unstar support, use a classic personal access token with public_repo scope. Use repo scope if you need private repositories."))
                     .font(.callout)
                     .foregroundStyle(.secondary)
-                Button(localized("Open GitHub Token Settings")) {
-                    NSWorkspace.shared.open(URL(string: "https://github.com/settings/tokens")!)
+                Button(localized("Open Classic Token Settings")) {
+                    NSWorkspace.shared.open(URL(string: "https://github.com/settings/tokens/new")!)
                 }
                 .buttonStyle(.link)
             }

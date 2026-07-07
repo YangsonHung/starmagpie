@@ -95,7 +95,7 @@ Select the `StarMagpie` scheme in Xcode and run the app.
 
 ## 🚀 Usage
 
-1. Create a GitHub Personal Access Token with access to your starred repositories.
+1. Create a classic GitHub Personal Access Token with access to your starred repositories.
 2. Launch StarMagpie and sign in with the token.
 3. Click Sync to load your starred repositories.
 4. Browse repositories in list or card mode, then click a repository to open its detail modal.
@@ -111,10 +111,19 @@ StarMagpie stores your token only in macOS Keychain. It never writes the token t
 
 Recommended minimum permissions:
 
-- Read Stars: allow reading the current user's starred repositories.
-- Unstar: requires write access to starred repositories.
+- Full sync and unstar support: use a classic personal access token with `public_repo`.
+- Private starred repositories: use a classic personal access token with `repo`.
 
-When using a fine-grained token, grant only the minimum account permissions needed.
+Create a classic token:
+
+1. Open [GitHub classic token settings](https://github.com/settings/tokens/new).
+2. Enter a token name and expiration.
+3. Select one permission set:
+   - Public starred repositories only: check `public_repo`.
+   - Public and private starred repositories: check `repo`.
+4. Do not enable unrelated scopes such as `workflow`, `write:packages`, `admin:org`, `gist`, `notifications`, `user`, `delete_repo`, `project`, or key-management scopes.
+5. Generate the token, copy it once, and paste it into StarMagpie.
+6. If you need to replace a token later, use StarMagpie's **Update GitHub Token** button. This only replaces the Keychain token and keeps local repositories, notes, and categories.
 
 ## 🛡️ Privacy
 

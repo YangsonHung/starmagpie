@@ -9,6 +9,7 @@ extension URLSession: HTTPSession {}
 enum GitHubClientError: LocalizedError, Equatable {
     case invalidToken
     case rateLimitExceeded(resetDate: Date?)
+    case permissionDenied(detail: String?)
     case invalidResponse
     case httpStatus(Int)
 
@@ -24,6 +25,12 @@ enum GitHubClientError: LocalizedError, Equatable {
                 )
             }
             return AppLocalizer.text("GitHub API rate limit exceeded")
+        case .permissionDenied(let detail):
+            let baseMessage = AppLocalizer.text("GitHub token does not have enough permissions for this action. For full unstar support, use a classic personal access token with public_repo scope. Use repo scope if you need private repositories.")
+            guard let detail, !detail.isEmpty else {
+                return baseMessage
+            }
+            return AppLocalizer.text("%@\nGitHub response: %@", baseMessage, detail)
         case .invalidResponse:
             return AppLocalizer.text("GitHub API returned an invalid response")
         case .httpStatus(let status):
@@ -51,7 +58,7 @@ final class GitHubClient {
     }
 
     func validateToken() async throws -> GitHubUser {
-        let request = makeRequest(pathComponents: ["user"], accept: "application/vnd.github.v3+json")
+        let request = makeRequest(pathComponents: ["user"], accept: "application/vnd.github+json")
         let data = try await perform(request)
         return try JSONDecoder.github.decode(GitHubUser.self, from: data)
     }
@@ -82,7 +89,7 @@ final class GitHubClient {
         let request = makeRequest(
             pathComponents: ["user", "starred", owner, repo],
             method: "DELETE",
-            accept: "application/vnd.github.v3+json"
+            accept: "application/vnd.github+json"
         )
         _ = try await perform(request, acceptsNoContent: true)
     }
@@ -170,9 +177,31 @@ final class GitHubClient {
                     .map { Date(timeIntervalSince1970: $0) }
                 throw GitHubClientError.rateLimitExceeded(resetDate: resetDate)
             }
+            if httpResponse.statusCode == 403 {
+                throw GitHubClientError.permissionDenied(
+                    detail: permissionDeniedDetail(data: data, response: httpResponse)
+                )
+            }
             throw GitHubClientError.httpStatus(httpResponse.statusCode)
         }
 
         return data
     }
+
+    private func permissionDeniedDetail(data: Data, response: HTTPURLResponse) -> String? {
+        var details: [String] = []
+        if let message = try? JSONDecoder().decode(GitHubErrorResponse.self, from: data).message,
+           !message.isEmpty {
+            details.append(message)
+        }
+        if let requiredPermissions = response.value(forHTTPHeaderField: "X-Accepted-GitHub-Permissions"),
+           !requiredPermissions.isEmpty {
+            details.append("X-Accepted-GitHub-Permissions: \(requiredPermissions)")
+        }
+        return details.isEmpty ? nil : details.joined(separator: " ")
+    }
+}
+
+private struct GitHubErrorResponse: Decodable {
+    let message: String
 }
