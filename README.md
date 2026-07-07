@@ -2,7 +2,7 @@
   <img src="docs/assets/app-icon.png" width="128" alt="StarMagpie app icon">
 </p>
 
-<h1 align="center">StarMagpie</h1>
+<h1 align="center">⭐ StarMagpie</h1>
 
 <p align="center">
   A native macOS app for turning GitHub Stars into a searchable, categorized, personal repository library.
@@ -29,13 +29,13 @@
   <img src="interface.jpg" alt="StarMagpie interface screenshot">
 </p>
 
-## Overview
+## 🧭 Overview
 
 StarMagpie syncs your GitHub starred repositories to your Mac and keeps them useful after the initial star. It stores repository metadata locally, lets you search across names, descriptions, languages, topics, and notes, and gives each repository a category so your Stars become easier to revisit.
 
 The app is intentionally small and native. It uses SwiftUI, SwiftData, URLSession, and macOS Keychain. There is no backend service, no account sync server, and no token storage outside Keychain.
 
-## Highlights
+## ✨ Highlights
 
 - Native macOS experience built with SwiftUI.
 - GitHub Personal Access Token sign-in with secure Keychain storage.
@@ -48,21 +48,21 @@ The app is intentionally small and native. It uses SwiftUI, SwiftData, URLSessio
 - JSON import and export for local repository data, categories, notes, and last viewed timestamps.
 - English and Simplified Chinese localization with an in-app language picker.
 
-## Contents
+## 📚 Contents
 
-- [Requirements](#requirements)
-- [Install](#install)
-- [Usage](#usage)
-- [GitHub Token Permissions](#github-token-permissions)
-- [Privacy](#privacy)
-- [Development](#development)
-- [Release Builds](#release-builds)
-- [Project Structure](#project-structure)
-- [Repository Topics](#repository-topics)
-- [Contributing](#contributing)
-- [License](#license)
+- [Requirements](#-requirements)
+- [Install](#-install)
+- [Usage](#-usage)
+- [GitHub Token Permissions](#-github-token-permissions)
+- [Privacy](#-privacy)
+- [Development](#-development)
+- [Release Builds](#-release-builds)
+- [Localization](#-localization)
+- [Project Structure](#-project-structure)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-## Requirements
+## 🖥️ Requirements
 
 - macOS 14.0 or later
 - Xcode 26 or later
@@ -74,15 +74,15 @@ Install XcodeGen with Homebrew:
 brew install xcodegen
 ```
 
-## Install
+## 📦 Install
 
-### Download a release
+### ⬇️ Download a release
 
 Download `StarMagpie-unsigned.dmg` from the GitHub Releases page once releases are published. Open the DMG and drag `StarMagpie.app` to Applications.
 
 The project does not use an Apple Developer certificate yet, so release packages are not signed with Developer ID and are not notarized by Apple. macOS Gatekeeper will warn that the app is from an unidentified developer.
 
-### Build from source
+### 🛠️ Build from source
 
 ```bash
 git clone https://github.com/yangsonhung/starmagpie.git
@@ -93,7 +93,7 @@ open StarMagpie.xcodeproj
 
 Select the `StarMagpie` scheme in Xcode and run the app.
 
-## Usage
+## 🚀 Usage
 
 1. Create a GitHub Personal Access Token with access to your starred repositories.
 2. Launch StarMagpie and sign in with the token.
@@ -105,7 +105,7 @@ Select the `StarMagpie` scheme in Xcode and run the app.
 
 Import behavior is merge-based: repositories with the same GitHub repo `id` are updated, and local repositories missing from the archive are kept.
 
-## GitHub Token Permissions
+## 🔐 GitHub Token Permissions
 
 StarMagpie stores your token only in macOS Keychain. It never writes the token to SwiftData, logs, or project files.
 
@@ -116,7 +116,7 @@ Recommended minimum permissions:
 
 When using a fine-grained token, grant only the minimum account permissions needed.
 
-## Privacy
+## 🛡️ Privacy
 
 StarMagpie is local-first:
 
@@ -126,7 +126,7 @@ StarMagpie is local-first:
 - GitHub tokens are stored in macOS Keychain only.
 - Repository data, notes, categories, and import/export archives stay under your control.
 
-## Development
+## 🧑‍💻 Development
 
 Generate the Xcode project:
 
@@ -158,7 +158,7 @@ Build an unsigned release package:
 ./scripts/package-unsigned.sh
 ```
 
-## Release Builds
+## 🏷️ Release Builds
 
 Local unsigned packages are written to:
 
@@ -171,7 +171,7 @@ When a `v*` tag is pushed to GitHub, the `Release Unsigned Build` workflow build
 
 The build has no Apple TeamIdentifier. Xcode may still add an ad-hoc/linker signature to the executable, which is not a Developer ID signature.
 
-## Localization
+## 🌐 Localization
 
 The source code uses English strings as the base language. User-facing strings are localized through:
 
@@ -182,7 +182,7 @@ The source code uses English strings as the base language. User-facing strings a
 
 When adding UI text, update both English and Simplified Chinese localization files in the same change.
 
-## Project Structure
+## 🗂️ Project Structure
 
 ```text
 StarMagpie/
@@ -211,25 +211,7 @@ StarMagpie/
 └── project.yml                 # XcodeGen config
 ```
 
-## Repository Topics
-
-Suggested GitHub topics:
-
-```text
-macos
-swift
-swiftui
-swiftdata
-github
-github-stars
-github-api
-keychain
-xcodegen
-productivity
-open-source
-```
-
-## Contributing
+## 🤝 Contributing
 
 Issues and pull requests are welcome. Please read:
 
@@ -239,6 +221,6 @@ Issues and pull requests are welcome. Please read:
 
 Use the GitHub issue templates when reporting bugs, asking questions, or proposing features. Include macOS version, Xcode version, reproduction steps, and relevant logs when applicable.
 
-## License
+## 📄 License
 
 StarMagpie is licensed under the [GNU General Public License v3.0](LICENSE).
