@@ -12,7 +12,8 @@ struct MainView: View {
 
     @State private var selectedCategoryId = RepositoryFilter.allCategoryId
     @State private var selectedLanguage = ""
-    @State private var sortOption = SortOption.starsDesc
+    @State private var sortOption = SortOption.stars
+    @State private var sortDirection = SortDirection.descending
     @State private var searchText = ""
     @State private var browserLayout = RepositoryBrowserLayout.list
     @State private var isImporting = false
@@ -40,7 +41,8 @@ struct MainView: View {
             searchText: searchText,
             selectedCategoryId: selectedCategoryId,
             selectedLanguage: selectedLanguage,
-            sortOption: sortOption
+            sortOption: sortOption,
+            sortDirection: sortDirection
         )
     }
 
@@ -67,6 +69,7 @@ struct MainView: View {
                 languages: languages,
                 selectedLanguage: $selectedLanguage,
                 sortOption: $sortOption,
+                sortDirection: $sortDirection,
                 searchText: $searchText,
                 layoutMode: $browserLayout,
                 readmeProvider: readmeProvider
@@ -79,6 +82,7 @@ struct MainView: View {
         .toolbar {
             ToolbarItemGroup {
                 AppLanguagePicker()
+                AppAppearancePicker()
 
                 Menu {
                     Button {
@@ -332,6 +336,7 @@ private struct RepositoryBrowserView: View {
     let languages: [String]
     @Binding var selectedLanguage: String
     @Binding var sortOption: SortOption
+    @Binding var sortDirection: SortDirection
     @Binding var searchText: String
     @Binding var layoutMode: RepositoryBrowserLayout
     let readmeProvider: any RepositoryReadmeProvider
@@ -347,6 +352,7 @@ private struct RepositoryBrowserView: View {
                 languages: languages,
                 selectedLanguage: $selectedLanguage,
                 sortOption: $sortOption,
+                sortDirection: $sortDirection,
                 searchText: $searchText,
                 layoutMode: $layoutMode,
                 filteredCount: filteredRepositories.count,
@@ -477,6 +483,7 @@ private struct SearchAndFilterBar: View {
     let languages: [String]
     @Binding var selectedLanguage: String
     @Binding var sortOption: SortOption
+    @Binding var sortDirection: SortDirection
     @Binding var searchText: String
     @Binding var layoutMode: RepositoryBrowserLayout
     let filteredCount: Int
@@ -502,12 +509,7 @@ private struct SearchAndFilterBar: View {
             }
             .frame(width: 142)
 
-            Picker(localized("Sort"), selection: $sortOption) {
-                ForEach(SortOption.allCases) { option in
-                    Text(option.title(language: language)).tag(option)
-                }
-            }
-            .frame(width: 122)
+            SortMenuButton(sortOption: $sortOption, sortDirection: $sortDirection)
 
             Text("\(filteredCount) / \(totalCount)")
                 .font(.callout)
@@ -527,6 +529,69 @@ private struct SearchAndFilterBar: View {
         }
         .controlSize(.small)
         .padding(8)
+    }
+
+    private var language: AppLanguage {
+        appSettings.language
+    }
+
+    private func localized(_ key: String) -> String {
+        AppLocalizer.text(key, language: language)
+    }
+}
+
+private struct SortMenuButton: View {
+    @EnvironmentObject private var appSettings: AppSettings
+    @Binding var sortOption: SortOption
+    @Binding var sortDirection: SortDirection
+
+    var body: some View {
+        Menu {
+            Section {
+                ForEach(SortOption.allCases) { option in
+                    Button {
+                        sortOption = option
+                    } label: {
+                        Label(option.title(language: language), systemImage: option == sortOption ? "checkmark" : option.symbolName)
+                    }
+                }
+            } header: {
+                Text(localized("Sort By"))
+            }
+
+            Section {
+                ForEach(SortDirection.allCases) { direction in
+                    Button {
+                        sortDirection = direction
+                    } label: {
+                        Label(direction.title(for: sortOption, language: language), systemImage: direction == sortDirection ? "checkmark" : direction.symbolName)
+                    }
+                }
+            } header: {
+                Text(localized("Sort Order"))
+            }
+        } label: {
+            Label {
+                Text(summaryTitle)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+            } icon: {
+                Image(systemName: "arrow.up.arrow.down")
+            }
+        }
+        .frame(width: 190, alignment: .leading)
+        .help(summaryTitle)
+        .accessibilityLabel(Text(localized("Sort")))
+        .accessibilityValue(Text(summaryTitle))
+    }
+
+    private var summaryTitle: String {
+        AppLocalizer.text(
+            "%@: %@",
+            language: language,
+            sortOption.summaryTitle(language: language),
+            sortDirection.title(for: sortOption, language: language)
+        )
     }
 
     private var language: AppLanguage {

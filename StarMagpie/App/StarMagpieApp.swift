@@ -9,6 +9,7 @@ struct StarMagpieApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(appSettings)
+                .preferredColorScheme(appSettings.appearance.colorScheme)
         }
         .modelContainer(for: StarredRepo.self)
     }

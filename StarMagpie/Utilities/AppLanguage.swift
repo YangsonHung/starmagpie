@@ -31,9 +31,29 @@ enum AppLanguage: String, CaseIterable, Identifiable {
     }
 }
 
+enum AppAppearance: String, CaseIterable, Identifiable {
+    case system
+    case light
+    case dark
+
+    var id: String { rawValue }
+
+    var colorScheme: ColorScheme? {
+        switch self {
+        case .system:
+            nil
+        case .light:
+            .light
+        case .dark:
+            .dark
+        }
+    }
+}
+
 @MainActor
 final class AppSettings: ObservableObject {
     nonisolated static let languageDefaultsKey = "app.language"
+    nonisolated static let appearanceDefaultsKey = "app.appearance"
 
     @Published var language: AppLanguage {
         willSet {
@@ -41,9 +61,18 @@ final class AppSettings: ObservableObject {
         }
     }
 
+    @Published var appearance: AppAppearance {
+        willSet {
+            UserDefaults.standard.set(newValue.rawValue, forKey: Self.appearanceDefaultsKey)
+        }
+    }
+
     init() {
-        let rawValue = UserDefaults.standard.string(forKey: Self.languageDefaultsKey)
-        language = rawValue.flatMap(AppLanguage.init(rawValue:)) ?? .system
+        let languageRawValue = UserDefaults.standard.string(forKey: Self.languageDefaultsKey)
+        language = languageRawValue.flatMap(AppLanguage.init(rawValue:)) ?? .system
+
+        let appearanceRawValue = UserDefaults.standard.string(forKey: Self.appearanceDefaultsKey)
+        appearance = appearanceRawValue.flatMap(AppAppearance.init(rawValue:)) ?? .system
     }
 }
 

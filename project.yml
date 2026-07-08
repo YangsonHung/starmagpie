@@ -44,8 +44,8 @@ targets:
         CFBundleName: StarMagpie
         CFBundleIconName: AppIcon
         CFBundleDevelopmentRegion: en
-        CFBundleShortVersionString: "0.3.1"
-        CFBundleVersion: "4"
+        CFBundleShortVersionString: "0.4.0"
+        CFBundleVersion: "5"
         LSMinimumSystemVersion: "14.0"
         LSApplicationCategoryType: public.app-category.productivity
         NSHumanReadableCopyright: Copyright © 2026

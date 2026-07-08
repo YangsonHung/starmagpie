@@ -4,6 +4,17 @@ This project keeps a user-facing changelog. After releases, append changes by ve
 
 ## Unreleased
 
+## v0.4.0 - 2026-07-08
+
+### Added
+
+- Added manual app appearance switching for Follow System, Light, and Dark modes.
+- Added ascending and descending sorting for repository lists.
+
+### Changed
+
+- Reworked the sort control into a single menu that shows the active sort field and order.
+
 ## v0.3.1 - 2026-07-07
 
 ### Fixed
